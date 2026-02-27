@@ -8,7 +8,7 @@ import (
 	"sort"
 	"strings"
 	"sync"
-	"unicode"
+	_ "unicode"
 )
 
 // LazyOp is a function that takes an input slice and produces an output slice.
@@ -1513,25 +1513,4 @@ func equalItems[T any](a, b T) bool {
 	dataA, _ := json.Marshal(a)
 	dataB, _ := json.Marshal(b)
 	return string(dataA) == string(dataB)
-}
-
-// DeepClone creates a deep copy of the given object using JSON marshaling.
-func DeepClone[T any](obj T) (T, error) {
-	var clone T
-	data, err := json.Marshal(obj)
-	if err != nil {
-		return clone, err
-	}
-	err = json.Unmarshal(data, &clone)
-	return clone, err
-}
-
-// UppercaseFirst returns the string with its first character capitalized.
-func UppercaseFirst(s string) string {
-	if s == "" {
-		return ""
-	}
-	r := []rune(s)
-	r[0] = unicode.ToUpper(r[0])
-	return string(r)
 }
